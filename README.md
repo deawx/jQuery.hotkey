@@ -33,8 +33,11 @@ Include jQuery and the plugin on a page. Then bind events.
 
 ##Tools
 
-**$.hotkey.platform(items)** - Definition of shortcut keys for the OS. If the platform is not detected, it uses the property ```other``` for shortcut. 
+###`$.hotkey.platform(items)`
+Definition of shortcut keys for the OS.
 Supported OS: OS X, Windows, Linux, ChromeOS
+
+Returns: If the platform is not detected, it uses the property ```default``` for shortcut. 
 
 Example:
 
@@ -44,7 +47,7 @@ var shortcut = $.hotkey.platform({
 	linux: 'ctrl+alt+s',
 	windows: 'ctrl+s',
 	chrome: 'alt+shift+s',
-	other: 'ctrl+s'
+	default: 'ctrl+s'
 });
 ```
 
@@ -55,7 +58,7 @@ Save post as ```ctrl+s``` or ```cmd+s``` for Mac
 ```js
 var shortcut = $.hotkey.platform({
 	mac: 'cmd+s',
-	other: 'ctrl+s'
+	default: 'ctrl+s'
 });
 
 $(document).hotkey(shortcut, function(e){

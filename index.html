@@ -12,12 +12,12 @@
 
 		var zoomIn = $.hotkey.platform({
 				mac: 'cmd+plus',
-				other: 'ctrl+plus'
+				default: 'ctrl+plus'
 			}),
 
 			zoomOut  = $.hotkey.platform({
 				mac: 'cmd+minus',
-				other: 'ctrl+minus'
+				default: 'ctrl+minus'
 			}),
 
 			header = $('h2').text('Press ' + zoomIn + '/' + zoomOut + ' to zoom this document'),
@@ -39,13 +39,13 @@
 				console.log('+', elementZoom);
 				header.css('zoom', elementZoom);
 			})
-			.hotkey(zoomOut, function(e){
+		$(document).hotkey(zoomOut, function(e){
 				e.preventDefault();
 				elementZoom = elementZoom - 0.1;
 				console.log('-', elementZoom);
 				//header.css('zoom', elementZoom);
 			})
-			.hotkey('cmd+s', function(e){
+		$(document).hotkey('cmd+s', function(e){
 				e.preventDefault()
 				console.log('save');
 			})

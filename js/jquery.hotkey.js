@@ -105,16 +105,20 @@
 				}
 			}
 
-			return typeof items.other !== 'undefined' ? items.other : '';
+			return typeof items.default !== 'undefined' ? items.default : '';
 		}
 	};
 
 	var self = $.event.special.hotkey = {
 		setup: function(data, namespaces) {
-			$(this).data("hotkey", true).on('keydown', null, data, self.handler);
+			$(this).data("hotkey", true);
 		},
 		teardown: function(data) {
 			$(this).unbind('keydown', self.handler);
+		},
+		add: function(handle){
+			console.log(handle);
+			$(this).on('keydown', null, handle.data, self.handler);
 		},
 		handler: function(event){
 			if ($(this).data("hotkey")) {
