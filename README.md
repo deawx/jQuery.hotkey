@@ -3,7 +3,7 @@ jQuery Hotkey
 
 Simplest plugin for binding shortcuts
 
-v1.0.0
+v1.1.0
 
 Requirements
 ---------
