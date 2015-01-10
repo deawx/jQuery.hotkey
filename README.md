@@ -40,9 +40,10 @@ var shortcut = $.hotkey.os({
 	linux: 'ctrl+alt+s',
 	windows: 'ctrl+s',
 	chrome: 'alt+shift+s',
-	other: ztrl+s
+	other: 'ztrl+s'
 });
 ```
+Property ```other``` is default.
 
 Example
 -------
