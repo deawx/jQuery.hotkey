@@ -37,9 +37,7 @@ Include jQuery and the plugin on a page. Then bind events.
 
 Definition of shortcut keys for the OS.
 
-Supported OS: OS X, Windows, Linux, ChromeOS.
-
-Returns: If the platform is not detected, it uses the property ```default``` for shortcut. 
+Returns: If the platform is not detected, it return the property `default`. 
 
 ```js
 var shortcut = $.hotkey.platform({
