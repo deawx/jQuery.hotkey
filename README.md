@@ -41,7 +41,7 @@ Supported OS: OS X, Windows, Linux, ChromeOS
 
 Returns: If the platform is not detected, it uses the property ```default``` for shortcut. 
 
-Example:
+`Example:`
 
 ```js
 var shortcut = $.hotkey.platform({
