@@ -1,6 +1,6 @@
 #jQuery Hotkey
 
-Simplest plugin for binding shortcuts
+Simplest plugin for binding shortcuts events.
 
 v1.1.0
 
@@ -37,11 +37,9 @@ Include jQuery and the plugin on a page. Then bind events.
 
 Definition of shortcut keys for the OS.
 
-Supported OS: OS X, Windows, Linux, ChromeOS
+Supported OS: OS X, Windows, Linux, ChromeOS.
 
 Returns: If the platform is not detected, it uses the property ```default``` for shortcut. 
-
-**Example:**
 
 ```js
 var shortcut = $.hotkey.platform({
@@ -55,7 +53,7 @@ var shortcut = $.hotkey.platform({
 
 ##Example
 
-Save post as ```ctrl+s``` or ```cmd+s``` for Mac
+Save post as ```ctrl+s``` or ```cmd+s``` for Mac.
 
 ```js
 var shortcut = $.hotkey.platform({
