@@ -33,11 +33,9 @@ Include jQuery and the plugin on a page. Then bind events.
 
 ##Tools
 
-**$.hotkey.platform(items)** - Definition of shortcut keys for the OS.
+**$.hotkey.platform(items)** - Definition of shortcut keys for the OS. If the platform is not detected, it uses the property ```other``` for shortcut. Supported OS: OS X, Windows, Linux, ChromeOS
 
-Supported OS: OS X, Windows, Linux, ChromeOS
-
-Example object:
+Example:
 
 ```js
 var shortcut = $.hotkey.platform({
@@ -48,7 +46,6 @@ var shortcut = $.hotkey.platform({
 	other: 'ctrl+s'
 });
 ```
-Property ```other``` is default shortcut.
 
 ##Example
 
