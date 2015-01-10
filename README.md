@@ -8,7 +8,7 @@ v1.1.0
 Requirements
 ---------
 
-jQuery 1.7 (minimal version)
+jQuery 1.7+
 
 Usage
 -----
@@ -40,7 +40,7 @@ var shortcut = $.hotkey.os({
 	linux: 'ctrl+alt+s',
 	windows: 'ctrl+s',
 	chrome: 'alt+shift+s',
-	other: 'ztrl+s'
+	other: 'ctrl+s'
 });
 ```
 Property ```other``` is default shortcut.
@@ -57,9 +57,7 @@ var shortcut = $.hotkey.os({
 });
 
 $(document).hotkey(shortcut, function(e){
-	
 	e.preventDefault();
-
 	$.post("post/add", $('form.post').serialize());
 });
 ```

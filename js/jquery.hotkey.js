@@ -180,6 +180,6 @@
 	};
 
 	$.fn.hotkey = function(keys, handler){
-		$(this).on('hotkey', null, keys, handler);
+		return $(this).on('hotkey', null, keys, handler);
 	};
 })($, window, document);
