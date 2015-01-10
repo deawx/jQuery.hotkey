@@ -33,7 +33,8 @@ Include jQuery and the plugin on a page. Then bind events.
 
 ##Tools
 
-**$.hotkey.platform(items)** - Definition of shortcut keys for the OS. If the platform is not detected, it uses the property ```other``` for shortcut. Supported OS: OS X, Windows, Linux, ChromeOS
+**$.hotkey.platform(items)** - Definition of shortcut keys for the OS. If the platform is not detected, it uses the property ```other``` for shortcut. 
+Supported OS: OS X, Windows, Linux, ChromeOS
 
 Example:
 
