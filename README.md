@@ -17,6 +17,7 @@ Include jQuery and the plugin on a page. Then bind events.
 <script src="jquery.js"></script>
 <script src="jquery.hotkey.js"></script>
 <script>
+
 	$(document).hotkey('alt+shift+esc', function(e){
 	     // do stuff...
 	});
@@ -26,19 +27,20 @@ Include jQuery and the plugin on a page. Then bind events.
 	$(document).on('hotkey', null, 'alt+shift+esc', function(e){
 	    // do stuff...
 	});
+
 </script>
 ```
 
 ##Tools
 
-**$.hotkey.os(items)** - Definition of shortcut keys for the OS.
+**$.hotkey.platform(items)** - Definition of shortcut keys for the OS.
 
 Supported OS: OS X, Windows, Linux, ChromeOS
 
 Example object:
 
 ```js
-var shortcut = $.hotkey.os({
+var shortcut = $.hotkey.platform({
 	mac: 'cmd+s',
 	linux: 'ctrl+alt+s',
 	windows: 'ctrl+s',
@@ -53,7 +55,7 @@ Property ```other``` is default shortcut.
 Save post as ```ctrl+s``` or ```cmd+s``` for Mac
 
 ```js
-var shortcut = $.hotkey.os({
+var shortcut = $.hotkey.platform({
 	mac: 'cmd+s',
 	other: 'ctrl+s'
 });
@@ -67,7 +69,7 @@ $(document).hotkey(shortcut, function(e){
 ##Changelog
 
 v1.1.0
-* Add $.hotkey.os() tool
+* Add $.hotkey.platform() tool
 * Bug fixes
 
 v1.0.0

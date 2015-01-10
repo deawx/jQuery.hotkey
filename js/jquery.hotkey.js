@@ -90,19 +90,17 @@
 			222: "'"
 		},
 
-		os: function(items){
+		platform: function(items){
 			var os = {
 				mac: 'Mac OS',
 				linux: 'Linux|Debian|Ubuntu|Gentoo',
 				windows: 'Windows',
 				chrome: 'CrOS'
 			},
-			agent  = navigator.appVersion.toLowerCase(),
-			regexp = null;
+			agent  = navigator.appVersion.toLowerCase();
 
 			for (var index in os) {
-				var regexp = new RegExp(os[index].toLowerCase());
-				if (regexp.exec(agent) != null && typeof items[index] != 'undefined') {
+				if (new RegExp(os[index].toLowerCase()).exec(agent) != null && typeof items[index] != 'undefined') {
 					return items[index];
 				}
 			}
@@ -113,12 +111,12 @@
 
 	var self = $.event.special.hotkey = {
 		setup: function(data, namespaces) {
-			$(this).data("hotkey", true).on('keydown', null, data, self.keydown);
+			$(this).data("hotkey", true).on('keydown', null, data, self.handler);
 		},
 		teardown: function(data) {
-			$(this).unbind('keydown', self.keydown);
+			$(this).unbind('keydown', self.handler);
 		},
-		keydown: function(event){
+		handler: function(event){
 			if ($(this).data("hotkey")) {
 
 				var keys     = event.data, 
@@ -170,6 +168,7 @@
 
 				binded = binded.join('+');
 			
+				console.log(pressed, ' : ', binded, pressed == binded);
 				// Сравниваем результыты и вызываем событие
 				if (pressed == binded) {
 					event.type = "hotkey";

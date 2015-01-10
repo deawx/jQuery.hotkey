@@ -3,26 +3,21 @@
 <head>
 	<title>jQuery Hotkey Plugin</title>
 	<meta charset="utf-8">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="js/jquery.hotkey.js"></script>
 	<script>
 	$(function(){
 
 		'use strict';
 
-		var zoomIn = $.hotkey.os({
+		var zoomIn = $.hotkey.platform({
 				mac: 'cmd+plus',
 				other: 'ctrl+plus'
 			}),
 
-			zoomOut  = $.hotkey.os({
+			zoomOut  = $.hotkey.platform({
 				mac: 'cmd+minus',
 				other: 'ctrl+minus'
-			}),
-
-			normalZoom = $.hotkey.os({
-				mac: 'cmd+0',
-				other: 'ctrl+0'
 			}),
 
 			header = $('h2').text('Press ' + zoomIn + '/' + zoomOut + ' to zoom this document'),
@@ -30,6 +25,8 @@
 			defaultZoom = 1, 
 
 			elementZoom = false;
+
+			console.log(zoomIn, zoomOut);
 
 		if (!elementZoom) {
 			elementZoom = defaultZoom;
@@ -39,18 +36,20 @@
 			.hotkey(zoomIn, function(e){
 				e.preventDefault();
 				elementZoom = elementZoom + 0.1;
-				console.log(elementZoom);
+				console.log('+', elementZoom);
 				header.css('zoom', elementZoom);
 			})
 			.hotkey(zoomOut, function(e){
 				e.preventDefault();
 				elementZoom = elementZoom - 0.1;
-				header.css('zoom', elementZoom);
+				console.log('-', elementZoom);
+				//header.css('zoom', elementZoom);
 			})
-			.hotkey(normalZoom, function(e){
-				e.preventDefault();
-				header.css('zoom', defaultZoom);
-			});
+			.hotkey('cmd+s', function(e){
+				e.preventDefault()
+				console.log('save');
+			})
+			
 
 	});
 	</script>
