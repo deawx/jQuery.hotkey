@@ -43,7 +43,7 @@ var shortcut = $.hotkey.os({
 	other: 'ztrl+s'
 });
 ```
-Property ```other``` is default.
+Property ```other``` is default shortcut.
 
 Example
 -------
