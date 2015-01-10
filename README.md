@@ -1,32 +1,35 @@
-jQuery Hotkey
-=============
+#jQuery Hotkey
 
 Simplest plugin for binding shortcuts
 
 v1.1.0
 
-Requirements
----------
+##Requirements
 
 jQuery 1.7+
 
-Usage
------
 
-```js
-$(document).hotkey('alt+shift+esc', function(e){
-     // do stuff...
-});
+##Usage
 
-// or...
+Include jQuery and the plugin on a page. Then bind events.
 
-$(document).on('hotkey', null, 'alt+shift+esc', function(e){
-    // do stuff...
-});
+```html
+<script src="jquery.js"></script>
+<script src="jquery.hotkey.js"></script>
+<script>
+	$(document).hotkey('alt+shift+esc', function(e){
+	     // do stuff...
+	});
+
+	// or...
+
+	$(document).on('hotkey', null, 'alt+shift+esc', function(e){
+	    // do stuff...
+	});
+</script>
 ```
 
-Tools
------
+##Tools
 
 **$.hotkey.os(items)** - Definition of shortcut keys for the OS.
 
@@ -45,8 +48,7 @@ var shortcut = $.hotkey.os({
 ```
 Property ```other``` is default shortcut.
 
-Example
--------
+##Example
 
 Save post as ```ctrl+s``` or ```cmd+s``` for Mac
 
@@ -62,8 +64,7 @@ $(document).hotkey(shortcut, function(e){
 });
 ```
 
-Changelog
----------
+##Changelog
 
 v1.1.0
 * Add $.hotkey.os() tool
@@ -71,3 +72,8 @@ v1.1.0
 
 v1.0.0
 * First commit
+
+## License
+
+Copyright (c) 2015 Aleksey Barkovsky
+Licensed under the MIT license.
