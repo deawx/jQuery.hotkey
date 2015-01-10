@@ -88,6 +88,26 @@
 			220: "\\",
 			221: "]",
 			222: "'"
+		},
+
+		os: function(items){
+			var os = {
+				mac: 'Mac OS',
+				linux: 'Linux|Debian|Ubuntu|Gentoo',
+				windows: 'Windows',
+				chrome: 'CrOS'
+			},
+			agent  = navigator.appVersion.toLowerCase(),
+			regexp = null;
+
+			for (var index in os) {
+				var regexp = new RegExp(os[index].toLowerCase());
+				if (regexp.exec(agent) != null && typeof items[index] != 'undefined') {
+					return items[index];
+				}
+			}
+
+			return typeof items.other !== 'undefined' ? items.other : '';
 		}
 	};
 
@@ -149,12 +169,9 @@
 				}
 
 				binded = binded.join('+');
-
-				console.log('Binded', binded);
 			
 				// Сравниваем результыты и вызываем событие
 				if (pressed == binded) {
-					console.log('fire');
 					event.type = "hotkey";
 					$(this).trigger(event);
 				}

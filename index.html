@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Hotkey Plugin</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="js/jquery.hotkey.js"></script>
+	<script>
+	$(function(){
+
+		var shortcut = $.hotkey.os({
+			mac: 'cmd+s',
+			other: 'ctrl+s'
+		});
+
+		console.log('OS', shortcut);
+
+		$(document).hotkey(shortcut, function(e){
+			e.preventDefault();
+			alert('Save');
+		});
+
+	});
+	</script>
+</head>
+<body>
+
+</body>
+</html>
