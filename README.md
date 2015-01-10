@@ -23,7 +23,7 @@ $(document).on('hotkey', null, 'alt+shift+esc', function(e){
 Example
 =======
 
-Save post as cmd+s/ctrl+s
+Save post as ```ctrl+s``` or ```cmd+s``` for Mac
 
 ```js
 var shortcut = navigator.appVersion.indexOf("Mac") != -1)
