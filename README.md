@@ -1,4 +1,4 @@
-#jQuery Hotkey
+#jQuery Hotkey Event
 
 Simplest plugin for binding shortcuts events.
 

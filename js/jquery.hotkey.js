@@ -100,7 +100,7 @@
 			agent  = navigator.appVersion.toLowerCase();
 
 			for (var index in os) {
-				if (new RegExp(os[index].toLowerCase()).exec(agent) != null && typeof items[index] != 'undefined') {
+				if (new RegExp(os[index].toLowerCase()).exec(agent) !== null && typeof items[index] !== 'undefined') {
 					return items[index];
 				}
 			}
@@ -110,74 +110,65 @@
 	};
 
 	var self = $.event.special.hotkey = {
-		setup: function(data, namespaces) {
-			$(this).data("hotkey", true);
-		},
-		teardown: function(data) {
-			$(this).unbind('keydown', self.handler);
-		},
-		add: function(handle){
-			console.log(handle);
-			$(this).on('keydown', null, handle.data, self.handler);
-		},
-		handler: function(event){
-			if ($(this).data("hotkey")) {
+		delegateType: "keydown",
+		bindType: "keydown",
+		handle: function(event) {
+			var handle = event.handleObj,
+			    keys     = event.data, 
+			    sequence = ['alt', 'ctrl', 'shift', 'meta'],
+			    pressed  = [],
+			    primary  = '',
+			    binded   = [];
 
-				var keys     = event.data, 
-				    sequence = ['alt', 'ctrl', 'shift', 'meta'],
-				    pressed  = [],
-				    primary  = '',
-				    binded   = [];
+			if (typeof keys == 'string' && keys != '') {
+				keys = event.data.toLowerCase().replace("hyper", "alt+ctrl+shift").split('+');
+			} 
 
-				if (typeof keys == 'string' && keys != '') {
-					keys = event.data.toLowerCase().replace("hyper", "alt+ctrl+shift").split('+');
-				} 
+			if ($.isArray(keys) && keys.length > 0) {
+				keys = $.map(keys, function(value){
+					return value == 'cmd' ? 'meta' : value;
+				});
+			} else {
+				return;
+			}
 
-				if ($.isArray(keys) && keys.length > 0) {
-					keys = $.map(keys, function(value){
-						return value == 'cmd' ? 'meta' : value;
-					});
+			// Определяем нажатые кнопки в нужной последовательности
+			$.each(sequence, function(k, key){
+				event[key + 'Key'] && pressed.push(key);
+			});
+
+			if ($.inArray(event.which, [16, 17, 18, 91, 92])) {
+				if (typeof $.hotkey.specialKeys[event.which] !== 'undefined') {
+					pressed.push($.hotkey.specialKeys[event.which]);
 				} else {
-					return;
+					pressed.push(String.fromCharCode(event.which).toLowerCase());
 				}
+			}
 
-				// Определяем нажатые кнопки в нужной последовательности
-				$.each(sequence, function(k, key){
-					event[key + 'Key'] && pressed.push(key);
-				});
+			pressed = pressed.length > 1 ? pressed.join('+') : pressed;
 
-				if ($.inArray(event.which, [16, 17, 18, 91, 92])) {
-					if (typeof $.hotkey.specialKeys[event.which] !== 'undefined') {
-						pressed.push($.hotkey.specialKeys[event.which]);
-					} else {
-						pressed.push(String.fromCharCode(event.which).toLowerCase());
-					}
+			// Расставляем назначеные кнопки в нужной последжовательности
+			$.each(sequence, function(k, key){
+				k = $.inArray(key, keys);
+				if (k > -1) {
+					binded.push(key);
+					delete keys[k];
 				}
+			});
 
-				pressed = pressed.length > 1 ? pressed.join('+') : pressed;
+			primary = keys.join('');
 
-				// Расставляем назначеные кнопки в нужной последжовательности
-				$.each(sequence, function(k, key){
-					k = $.inArray(key, keys);
-					if (k > -1) {
-						binded.push(key);
-						delete keys[k];
-					}
-				});
+			if (primary != '') {
+				binded.push(primary);
+			}
 
-				primary = keys.join('');
-				if (primary != '') {
-					binded.push(primary);
-				}
-
-				binded = binded.join('+');
+			binded = binded.join('+');
 			
-				console.log(pressed, ' : ', binded, pressed == binded);
-				// Сравниваем результыты и вызываем событие
-				if (pressed == binded) {
-					event.type = "hotkey";
-					$(this).trigger(event);
-				}
+			// Сравниваем результыты и вызываем событие
+			if (pressed == binded) {
+				event.type = handle.origType;
+				event.type = handle.type;
+	            return handle.handler.apply(this, arguments);
 			}
 		}
 	};
