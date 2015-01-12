@@ -9,57 +9,171 @@
 	$(function(){
 		'use strict';
 
-		var zoomIn = $.hotkey.platform({
-				mac: 'cmd+alt+plus',
-				default: 'ctrl+alt+plus'
-			}),
-			zoomOut  = $.hotkey.platform({
-				mac: 'cmd+alt+minus',
-				default: 'ctrl+alt+minus'
-			}),
-			zoomNormal  = $.hotkey.platform({
-				mac: 'cmd+alt+0',
-				default: 'ctrl+alt+0'
-			}),
-			header = $('h2').text('Press ' + zoomIn + '/' + zoomOut + ' to zoom this document'),
+		var shortcut = {
+				zoomIn: $.hotkey.platform({
+					mac: 'command+option+plus',
+					default: 'ctrl+alt+plus'
+				}),
+				zoomOut: $.hotkey.platform({
+					mac: 'command+option+minus',
+					default: 'ctrl+alt+minus'
+				}),
+				zoomNormal: $.hotkey.platform({
+					mac: 'command+option+0',
+					default: 'ctrl+alt+0'
+				})
+			},
+			element     = $('div.container'),
 			defaultZoom = 1, 
-			elementZoom = false;
+			elementZoom = defaultZoom,
+			splited = $.map(shortcut, function(value){
+				return value.split('+');
+			});
 
-		if (!elementZoom) {
-			elementZoom = defaultZoom;
-		}
+		element.find('section').each(function(i){
+			var self    = $(this),
+				action  = self.attr('data-action');
+				splited = shortcut[action].split('+');
+
+			self.find('button').eq(0).text(splited[0]);
+			self.find('button').eq(1).text(splited[1]);
+			self.find('button').eq(2).text(splited[2]);
+		});
 
 		$(document)
-			.hotkey(zoomIn, function(e){
+			.hotkey(shortcut.zoomIn, function(e){
 				e.preventDefault();
 				elementZoom = elementZoom + 0.1;
-				header.css('zoom', elementZoom);
+				element.animate({ 'zoom': elementZoom }, 150);
+				if (elementZoom > 1.5) {
+					elementZoom = 1.5;
+					element.animate({ 'zoom': elementZoom }, 100);
+				}
 			})
-			.hotkey(zoomOut, function(e){
+			.hotkey(shortcut.zoomOut, function(e){
 				e.preventDefault();
 				elementZoom = elementZoom - 0.1;
-				header.css('zoom', elementZoom);
+				element.animate({ 'zoom': elementZoom }, 150);
+				if (elementZoom < 0.5) {
+					elementZoom = 0.5;
+					element.animate({ 'zoom': elementZoom }, 100);
+				}
+
 			})
-			.hotkey(zoomNormal, function(e){
+			.hotkey(shortcut.zoomNormal, function(e){
 				e.preventDefault()
 				elementZoom = defaultZoom;
-				header.css('zoom', elementZoom);
+				element.animate({ 'zoom': elementZoom }, 150);
 			});
 	});
 	</script>
 	<style>
 	body {
-		background: #ECEEEE;
-	}
-	h2 {
+		background: #65A9F8;
+		color: #fff;
+		font-size: 20px;
 		font-family: sans-serif;
-		margin: 30% auto;
+		padding: 3%;
+	}
+
+	a.fork {
+		background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjE1MnB4IiBoZWlnaHQ9IjE1MXB4IiB2aWV3Qm94PSIwIDAgMTUyIDE1MSIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDMuMSAoODc1MSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+U2xpY2UgMjwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSJSZWN0YW5nbGUtMy0rLVJlY3RhbmdsZS00LSstRm9yay1tZS1vbi1HaXRHdWIiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLCAtMjYuMDAwMDAwKSI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNC43MTU4MzgsNzUuNSBMLTIwLjY0MTMxNyw3NS41IEwtMjAuNjQxMzE3LDEwNS4yNDc2MjcgTC0xNS42ODk3NTM1LDEwNS4yNDc2MjcgTDE5NS4zNTg2ODMsMTA1LjI0NzYyNyBMMTk1LjM1ODY4Myw3NS41IEwxNC43MTU4MzgsNzUuNSBaIiBpZD0iUmVjdGFuZ2xlLTMiIGZpbGw9IiM1Njk0REQiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg3LjM1ODY4MywgOTAuMzczODE0KSByb3RhdGUoLTMxNS4wMDAwMDApIHRyYW5zbGF0ZSgtODcuMzU4NjgzLCAtOTAuMzczODE0KSAiPjwvcGF0aD4KICAgICAgICAgICAgPHBhdGggZD0iTTE5OC40NTYzMzksMTAyLjI0NzYyNyBMMTk4LjQ1NjMzOSw3Mi41IEwtMTcuNTQzNjYwNyw3Mi41IEwtMTcuNTQzNjYwNywxMDIuMjQ3NjI3IiBpZD0iUmVjdGFuZ2xlLTQiIGZpbGw9IiM0QTRBNEEiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkwLjQ1NjMzOSwgODcuMzczODE0KSByb3RhdGUoLTMxNS4wMDAwMDApIHRyYW5zbGF0ZSgtOTAuNDU2MzM5LCAtODcuMzczODE0KSAiPjwvcGF0aD4KICAgICAgICAgICAgPHRleHQgaWQ9IkZvcmstbWUtb24tR2l0R3ViIiBza2V0Y2g6dHlwZT0iTVNUZXh0TGF5ZXIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkwLjU5NzY1NiwgODcuNjAyMDAwKSByb3RhdGUoLTMxNS4wMDAwMDApIHRyYW5zbGF0ZSgtOTAuNTk3NjU2LCAtODcuNjAyMDAwKSAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNGRkZGRkYiPgogICAgICAgICAgICAgICAgPHRzcGFuIHg9IjM2LjA5NzY1NjIiIHk9IjkyLjEwMiI+Rm9yayBtZSBvbiBHaXRHdWI8L3RzcGFuPgogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=') center center;
+		width: 139px;
+		height: 141px;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+	h1, h2 {
+		font-weight: 400;
+		display: inline;
+	}
+
+	h1 {
+		font-size: 18px;
+	}
+
+	h2 {
+		font-size: 14px;
+	}
+
+	div.container {
+		width: 500px;
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		margin-left: -250px;
+	}
+
+	div.container .row {
+		margin-bottom: 30px;
 		text-align: center;
+	}
+
+	div.caption {
+		padding-top: 15px;
+		text-align: center;
+	}
+
+	button {
+		border: none;
+		background: #fff;
+		min-width: 40px;
+		height: 42px;
+		vertical-align: middle;
+		font-size: 15px;
+		padding: 11px;
+		border-radius: 5px;
+		color: #686C6F;
+		border-radius: 5px;
+		outline: none;
+		-moz-box-shadow: inset 0px -4px 0px 0px rgba(73,143,225,0.33);
+		box-shadow: inset 0px -4px 0px 0px rgba(73,143,225,0.33);
+		margin: 0;
+	}
+
+	span.plus {
+		color: #fff;
+		font-size: 20px;
+		padding: 11px 3px;
+	}
+
+	button.active {
 		color: #4A90E2;
 	}
 	</style>
 </head>
 <body>
-<h2></h2>
+	<a class='fork' href="https://github.com/koomootoz/jQuery.hotkey"></a>
+	<h1>jQuery Hotkey Event</h1>
+	<div class='container'>
+		<section class="row" data-action="zoomIn">
+			Press <button>⌘</button>
+			<span class='plus'>+</span>
+			<button>⌥</button>
+			<span class='plus'>+</span>
+			<button>+</button> to zoom,
+			<!--div class="caption">zoom in</div-->
+		</section>
+
+		<section class="row" data-action="zoomOut">
+			or <button>⌘</button>
+			<span class='plus'>+</span>
+			<button>⌥</button>
+			<span class='plus'>+</span>
+			<button>-</button> to zoom out
+			<!--div class="caption">zoom out</div-->
+		</section>
+
+		<section class="row" data-action="zoomNormal">
+			and press <button>⌘</button>
+			<span class='plus'>+</span>
+			<button>⌥</button>
+			<span class='plus'>+</span>
+			<button>-</button> to normal size
+			<!--div class="caption">normal zoom</div-->
+		</section>
+	</div>
 </body>
 </html>

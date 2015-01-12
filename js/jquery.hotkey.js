@@ -24,7 +24,7 @@
 
 	$.hotkey = {
 
-		varsion: '1.0.0',
+		varsion: '1.2.0',
 
 		specialKeys: {
 			8: "backspace",
@@ -90,6 +90,28 @@
 			222: "'"
 		},
 
+		aliasesKeys: {
+			'alt':       ['option', 'opt', '⌥'],
+			'ctrl':      ['control', '⌃'],
+			'shift':     ['⇧'],
+			'meta':      ['cmd', 'command', 'windows', 'win', '⌘', ''],
+			'return':    ['enter', '⌅', '↩'],
+			'capslock':  ['capital', 'caps', '⇪'],
+			'esc':       ['escape', '⎋'],
+			'backspace': ['⌫'],
+			'hyper':     ['alt+ctrl+shift'],
+			'del':       ['delete', '⌦'],
+			'tab':       ['⇥'],
+			'home':      ['↖'],
+			'end':       ['↘'],
+			'pageup':    ['⇞'],
+			'pagedown':  ['⇟'],
+			'up':        ['↑'],
+			'down':      ['↓'],
+			'left':      ['←'],
+			'right':     ['→']
+		},
+
 		platform: function(items){
 			var os = {
 				mac: 'Mac OS',
@@ -98,7 +120,7 @@
 				chrome: 'CrOS'
 			},
 			agent  = navigator.appVersion.toLowerCase();
-
+			
 			for (var index in os) {
 				if (new RegExp(os[index].toLowerCase()).exec(agent) !== null && typeof items[index] !== 'undefined') {
 					return items[index];
@@ -120,14 +142,15 @@
 			    primary  = '',
 			    binded   = [];
 
+			// Подготовка
 			if (typeof keys == 'string' && keys != '') {
-				keys = event.data.toLowerCase().replace("hyper", "alt+ctrl+shift").split('+');
-			} 
-
-			if ($.isArray(keys) && keys.length > 0) {
-				keys = $.map(keys, function(value){
-					return value == 'cmd' ? 'meta' : value;
+				keys = keys.toLowerCase().replace(" ", '');
+				$.each($.hotkey.aliasesKeys, function(key, list){
+					$.each(list, function(i, alias){
+						keys = keys.replace(alias, key);
+					});
 				});
+				keys = keys.split('+');
 			} else {
 				return;
 			}
