@@ -37,7 +37,7 @@ Shotcuts can be passed as strings. Case and whitespace do not matter. `+` is use
 For example, if you wanted to look for the key combination of control + shift + P, then one of the following would
 represent that (you can use shorthand names or symbols for keys that need it):
 
-'ctrl+shift+p' or 'control+shift+p' or '⌃+⇧+P'
+`ctrl+shift+p` or `control+shift+p` or `⌃+⇧+p`
 
 ##Tools
 
