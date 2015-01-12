@@ -87,7 +87,7 @@ v1.1.0
 * Bug fixes
 
 v1.0.0
-* First commit
+* Release
 
 ## License
 
