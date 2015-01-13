@@ -24,7 +24,7 @@
 
 	$.hotkey = {
 
-		varsion: '1.2.0',
+		varsion: '1.2.1',
 
 		specialKeys: {
 			8: "backspace",
@@ -74,7 +74,7 @@
 			121: "f10",
 			122: "f11",
 			123: "f12",
-			144: "numlock",
+			144: "num",
 			145: "scroll",
 			173: "-",
 			186: ";",
@@ -101,6 +101,9 @@
 			'backspace': ['⌫'],
 			'hyper':     ['alt+ctrl+shift'],
 			'del':       ['delete', '⌦'],
+			'insert':    ['ins'],
+			'num':       ['numlock'],
+			'scroll':    ['scrolllock'],
 			'tab':       ['⇥'],
 			'home':      ['↖'],
 			'end':       ['↘'],
@@ -135,7 +138,7 @@
 		delegateType: "keydown",
 		bindType: "keydown",
 		handle: function(event) {
-			var handle = event.handleObj,
+			var handle   = event.handleObj,
 			    keys     = event.data, 
 			    sequence = ['alt', 'ctrl', 'shift', 'meta'],
 			    pressed  = [],
@@ -189,9 +192,8 @@
 			
 			// Сравниваем результыты и вызываем событие
 			if (pressed == binded) {
-				event.type = handle.origType;
-				event.type = handle.type;
-	            return handle.handler.apply(this, arguments);
+				event.type = 'hotkey';
+	            return handle.handler.call(this, event);
 			}
 		}
 	};

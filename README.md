@@ -2,11 +2,7 @@
 
 Simplest plugin for binding shortcuts events.
 
-v1.2.0
-
-##Requirements
-
-jQuery 1.7+
+v1.2.1
 
 
 ##Usage
@@ -31,13 +27,49 @@ Include jQuery and the plugin on a page. Then bind events.
 </script>
 ```
 
+
 ##Key Bindings
 
 Shotcuts can be passed as strings. Case and whitespace do not matter. `+` is used to add keys to make a single combo.
-For example, if you wanted to look for the key combination of control + shift + P, then one of the following would
+For example, if you wanted to look for the key combination of `control + shift + p`, then one of the following would
 represent that (you can use shorthand names or symbols for keys that need it):
 
 `ctrl+shift+p` or `control+shift+p` or `⌃+⇧+p`
+
+
+##Key names
+
+Full name | Name | Alias
+----|---------|------------
+Altername | `alt` | 
+Option | `option` | `opt`, `⌥`
+Control | `ctrl` | `control`, `⌃`
+Shift | `shift` | `⇧`
+Command | `cmd` | `cmd`, `command`, `⌘`, ``
+Windows | `windows` | `win`
+Spacebar | `space` | 
+Return | `return` | `enter`, `⌅`, `↩`
+Caps Lock | `caps` | `capital`, `capslock`, `⇪` 
+Escape | `esc` | `escape`, `⎋` 
+Back Space | `backspace` | `⌫` 
+Delete | `del` | `delete`, `⌦`
+Insert | `insert` | `ins`
+Num Lock | `num` | `numlock`
+Scroll Lock | `scroll` | `scrolllock`
+Tab | `tab` | `⇥` 
+Home | `home` | `↖` 
+End | `end` | `↘` 
+Page Up | `pageup` | `⇞` 
+Pge Down | `pagedown` | `⇟` 
+Arrow Up | `up` | `↑` 
+Arrow Down | `down` | `↓` 
+Arrow Left | `left` | `←` 
+Arrow Right | `right` | `→` 
+Hyper | `hyper` | `alt+ctrl+shift`
+Informational | `f1`...`f12`
+Plus | `plus` | 
+Minus | `minus` | 
+
 
 ##Tools
 
@@ -59,6 +91,7 @@ var shortcut = $.hotkey.platform({
 });
 ```
 
+
 ##Example Usage
 
 Save post as ```ctrl+s``` or ```cmd+s``` for Mac.
@@ -75,7 +108,17 @@ $(document).hotkey(shortcut, function(e){
 });
 ```
 
+
+##Dependencies
+
+Requires jQuery 1.8.x or higher.
+
+
 ##Changelog
+
+v1.2.1
+* Bug Fixes
+* Minor improvements
 
 v1.2.0
 * Add symbols support
