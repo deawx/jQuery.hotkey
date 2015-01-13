@@ -111,7 +111,7 @@ $(document).hotkey(shortcut, function(e){
 
 ##Dependencies
 
-Requires jQuery 1.8.x or higher.
+Requires jQuery 1.7.x or higher.
 
 
 ##Changelog
