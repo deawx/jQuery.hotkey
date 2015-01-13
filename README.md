@@ -45,7 +45,7 @@ Altername | `alt` |
 Option | `option` | `opt`, `⌥`
 Control | `ctrl` | `control`, `⌃`
 Shift | `shift` | `⇧`
-Command | `cmd` | `cmd`, `command`, `⌘`, ``
+Command | `cmd` | `command`, `⌘`, ``
 Windows | `windows` | `win`
 Spacebar | `space` | 
 Return | `return` | `enter`, `⌅`, `↩`
